@@ -1,0 +1,36 @@
+@mixin transform($value) {
+    -webkit-transform: $value;
+    -moz-transform: $value;
+    -o-transform: $value;
+    -ms-transform: $value;
+    transform: $value;
+}
+
+@mixin transform-origin($value) {
+    -webkit-transform-origin: $value;
+    -moz-transform-origin: $value;
+    -o-transform-origin: $value;
+    -ms-transform-origin: $value;
+    transform-origin: $value;
+}
+
+@mixin transform-origin-x($value) {
+    -webkit-transform-origin-x: $value;
+    -moz-transform-origin-x: $value;
+    -o-transform-origin-x: $value;
+    -ms-transform-origin-x: $value;
+}
+
+@mixin transform-origin-y($value) {
+    -webkit-transform-origin-y: $value;
+    -moz-transform-origin-y: $value;
+    -o-transform-origin-y: $value;
+    -ms-transform-origin-y: $value;
+}
+
+@mixin transform-origin-z($value) {
+    -webkit-transform-origin-z: $value;
+    -moz-transform-origin-z: $value;
+    -o-transform-origin-z: $value;
+    -ms-transform-origin-z: $value;
+}

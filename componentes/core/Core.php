@@ -7,9 +7,8 @@ class Core {
 		if(isset($_GET['url'])) {
 			$url .= $_GET['url'];
 		}
-
 		$params = array();
-
+				
 		if(!empty($url) && $url != '/') {
 			$url = explode('/', $url);
 			array_shift($url);
@@ -33,12 +32,41 @@ class Core {
 			$currentAction = 'index';
 		}
 
-		if(!file_exists('../../componentes/'.$local.'/controllers/'.$currentController.'.php') || !method_exists($currentController, $currentAction)) {
-			$currentController = 'notfoundController';
-			$currentAction = 'index';
-		}	
+		$instancia = '';
 
-		$c = new $currentController();
-		call_user_func_array(array($c, $currentAction), $params);
+		if($local === 'site') {
+			if(file_exists('../componentes/controllers/'.$local.'/'.$currentController.'.php')) {
+				require_once '../componentes/controllers/'.$local.'/'.$currentController.'.php';
+				$instancia = new $currentController();
+
+				if(!method_exists($instancia, $currentAction)) {
+					$currentController = 'notfoundController';
+					$currentAction = 'index';	
+				}
+			} else {
+				$currentController = 'notfoundController';
+				$currentAction = 'index';
+			}
+		}
+		else if($local === 'painel') {
+			if(file_exists('../../componentes/controllers/'.$local.'/'.$currentController.'.php')) {
+				require_once '../../componentes/controllers/'.$local.'/'.$currentController.'.php';
+				$instancia = new $currentController();
+
+				if(!method_exists($instancia, $currentAction)) {
+					$currentController = 'notfoundController';
+					$currentAction = 'index';	
+				}
+			} else {
+				$currentController = 'notfoundController';
+				$currentAction = 'index';
+			}
+		}
+
+		if($instancia === '') {
+			$instancia = new $currentController();
+		}
+
+		call_user_func_array(array($instancia, $currentAction), $params);
 	}
 }

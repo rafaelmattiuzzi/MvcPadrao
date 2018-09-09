@@ -1,10 +1,5 @@
 <?php
 /**
-*** Requerendo arquivos necessários;
-**/
-require_once '../../componentes/config/config.php';
-
-/**
 *** Classe de conexão ao banco de dados;
 *** Retorna um objeto PDO pelo método estático 'getConn()';
 **/
@@ -23,7 +18,10 @@ class DB {
 	**/
 	private static function connect() {
 		try {
+			global $config;
 			if(self::$conn === null) {
+				$config = new Config();
+				$config = $config->getConfig();
 				self::$conn = new PDO('mysql:dbname='.$config['dbname'].';host='.$config['host'], $config['dbuser'], $config['dbpass'], $config['options']);
 				self::$conn->setAttribute(PDO::ATTR_ERRMODE, $config['errmode']);
 				self::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $config['fetch_mode']);
